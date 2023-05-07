@@ -61,6 +61,7 @@ final class DeskVC: UIViewController, UICollectionViewDataSource, UICollectionVi
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         scrollView.setZoomScale(1, animated: false)
+        currentDesk = nil
     }
     
     override func viewDidAppear(_ animated: Bool) {

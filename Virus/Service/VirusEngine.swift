@@ -16,6 +16,8 @@ final class VirusEngine {
     private var refreshStat: ((Int, Int) -> Void)?
     private let taskManagerQueue = DispatchQueue(label: "VadimPopov.Virus.Engine.TaskManagerQueue")
     private let concurrentQueue = DispatchQueue(label: "VadimPopov.Virus.Engine.ConcurrentQueue", attributes: .concurrent)
+    private var timer: DispatchSourceTimer?
+    private var taskManagerQueueKey: Int = 0
     
     public init(
         _ groupSize: Int,
@@ -27,6 +29,10 @@ final class VirusEngine {
         self.timeInterval = timeInterval
     }
     
+    deinit {
+        timer = nil
+    }
+    
     public func getDesk() -> DeskState {
         return desk
     }
@@ -36,18 +42,34 @@ final class VirusEngine {
     ) {
         desk.columnsCount = columnsCount
         
-        Timer.scheduledTimer(withTimeInterval: Double(self.timeInterval), repeats: true) { [self] _ in
-            DispatchQueue.main.async { [self] in
-                coordinator.getReference(for: DeskVC.self).reloadAll()
-                desk.buf = []
+        let timer = DispatchSource.makeTimerSource(queue: taskManagerQueue)
+        timer.setEventHandler { [unowned self] in
+            if taskManagerQueueKey > 0 {
+                return
+            }
+            taskManagerQueueKey = 1
+            DispatchQueue.main.async { [unowned self] in
+                if !desk.buf.isEmpty {
+                    coordinator.getReference(for: DeskVC.self).reloadAll()
+                    desk.buf = []
+                }
+                if desk.sick == desk.count {
+                    self.timer = nil
+                    return
+                }
                 
-                concurrentQueue.async { [self] in
+                taskManagerQueue.async { [unowned self] in
                     for i in 0..<desk.values.count {
                         addTask(forItem: i)
                     }
+                    taskManagerQueueKey -= 1
                 }
             }
         }
+        let micro = Int(pow(10, 6) * self.timeInterval)
+        timer.schedule(deadline: .now(), repeating: .microseconds(micro), leeway: .microseconds(micro / 10))
+        timer.resume()
+        self.timer = timer
     }
     
     public func addInfected(_ ind: Int) {
@@ -59,19 +81,20 @@ final class VirusEngine {
     
     private func addTask(forItem item: Int) {
         guard desk.values[item], let columnsCount = desk.columnsCount else { return }
+        taskManagerQueueKey += 1
         let valuesCopy = desk.values
-        concurrentQueue.async { [self] in
+        concurrentQueue.async { [unowned self] in
             var neighbours: [Int] = []
             let mn = item - columnsCount
             let mx = item + columnsCount
             for i in -1...1 {
-                if mn + i >= 0 && mn + i < valuesCopy.count && !valuesCopy[mn + i] {
+                if mn + i >= 0 && mn + i < valuesCopy.count {
                     neighbours.append(mn + i)
                 }
-                if mx + i >= 0 && mx + i < valuesCopy.count && !valuesCopy[mx + i] {
+                if mx + i >= 0 && mx + i < valuesCopy.count {
                     neighbours.append(mx + i)
                 }
-                if i != 0 && item + i >= 0 && item + i < valuesCopy.count && !valuesCopy[item + i] {
+                if i != 0 && item + i >= 0 && item + i < valuesCopy.count {
                     neighbours.append(item + i)
                 }
             }
@@ -83,13 +106,16 @@ final class VirusEngine {
                     res.append(neighbours.remove(at: Int.random(in: 0..<neighbours.count)))
                 }
             }
-            DispatchQueue.main.async { [self] in
+            DispatchQueue.main.async { [unowned self] in
                 for newInd in res {
                     if !desk.values[newInd] {
                         desk.values[newInd] = true
                         desk.sick += 1
                         desk.buf.append(newInd)
                     }
+                }
+                taskManagerQueue.async { [unowned self] in
+                    taskManagerQueueKey -= 1
                 }
             }
         }
