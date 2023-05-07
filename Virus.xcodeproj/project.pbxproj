@@ -9,24 +9,22 @@
 /* Begin PBXBuildFile section */
 		94B6DFDF2A078291009B87FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B6DFDE2A078291009B87FC /* AppDelegate.swift */; };
 		94B6DFE12A078291009B87FC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B6DFE02A078291009B87FC /* SceneDelegate.swift */; };
-		94B6DFE32A078291009B87FC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B6DFE22A078291009B87FC /* ViewController.swift */; };
-		94B6DFE62A078291009B87FC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94B6DFE42A078291009B87FC /* Main.storyboard */; };
 		94B6DFE82A078292009B87FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94B6DFE72A078292009B87FC /* Assets.xcassets */; };
 		94B6DFEB2A078292009B87FC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 94B6DFE92A078292009B87FC /* LaunchScreen.storyboard */; };
 		94B6DFF62A078292009B87FC /* VirusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B6DFF52A078292009B87FC /* VirusTests.swift */; };
-		94B6E0002A078292009B87FC /* VirusUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B6DFFF2A078292009B87FC /* VirusUITests.swift */; };
-		94B6E0022A078292009B87FC /* VirusUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B6E0012A078292009B87FC /* VirusUITestsLaunchTests.swift */; };
+		94B6E00F2A078385009B87FC /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B6E00E2A078385009B87FC /* Coordinator.swift */; };
+		94B6E0142A0783EF009B87FC /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B6E0132A0783EF009B87FC /* MainVC.swift */; };
+		94B6E0162A07842D009B87FC /* DeskVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B6E0152A07842D009B87FC /* DeskVC.swift */; };
+		94B6E0182A07850D009B87FC /* CustomTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B6E0172A07850D009B87FC /* CustomTextFieldView.swift */; };
+		94B6E01B2A078EC0009B87FC /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B6E01A2A078EC0009B87FC /* Router.swift */; };
+		94B6E01D2A078EE0009B87FC /* VirusEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B6E01C2A078EE0009B87FC /* VirusEngine.swift */; };
+		94B6E0202A078F40009B87FC /* DeskState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B6E01F2A078F40009B87FC /* DeskState.swift */; };
+		94B6E0222A079F6A009B87FC /* DeskCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 94B6E0212A079F6A009B87FC /* DeskCollectionCell.xib */; };
+		94B6E0242A079FCE009B87FC /* DeskCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B6E0232A079FCE009B87FC /* DeskCellView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		94B6DFF22A078292009B87FC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 94B6DFD32A078291009B87FC /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 94B6DFDA2A078291009B87FC;
-			remoteInfo = Virus;
-		};
-		94B6DFFC2A078292009B87FC /* PBXContainerItemProxy */ = {
+		94B6E0252A07A757009B87FC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 94B6DFD32A078291009B87FC /* Project object */;
 			proxyType = 1;
@@ -39,16 +37,20 @@
 		94B6DFDB2A078291009B87FC /* Virus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Virus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		94B6DFDE2A078291009B87FC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		94B6DFE02A078291009B87FC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		94B6DFE22A078291009B87FC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		94B6DFE52A078291009B87FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		94B6DFE72A078292009B87FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		94B6DFEA2A078292009B87FC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		94B6DFEC2A078292009B87FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		94B6DFF12A078292009B87FC /* VirusTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VirusTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		94B6DFF52A078292009B87FC /* VirusTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirusTests.swift; sourceTree = "<group>"; };
-		94B6DFFB2A078292009B87FC /* VirusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VirusUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		94B6DFFF2A078292009B87FC /* VirusUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirusUITests.swift; sourceTree = "<group>"; };
-		94B6E0012A078292009B87FC /* VirusUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirusUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		94B6E00E2A078385009B87FC /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		94B6E0132A0783EF009B87FC /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
+		94B6E0152A07842D009B87FC /* DeskVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskVC.swift; sourceTree = "<group>"; };
+		94B6E0172A07850D009B87FC /* CustomTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldView.swift; sourceTree = "<group>"; };
+		94B6E01A2A078EC0009B87FC /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		94B6E01C2A078EE0009B87FC /* VirusEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirusEngine.swift; sourceTree = "<group>"; };
+		94B6E01F2A078F40009B87FC /* DeskState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskState.swift; sourceTree = "<group>"; };
+		94B6E0212A079F6A009B87FC /* DeskCollectionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeskCollectionCell.xib; sourceTree = "<group>"; };
+		94B6E0232A079FCE009B87FC /* DeskCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskCellView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,13 +68,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		94B6DFF82A078292009B87FC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -81,7 +76,6 @@
 			children = (
 				94B6DFDD2A078291009B87FC /* Virus */,
 				94B6DFF42A078292009B87FC /* VirusTests */,
-				94B6DFFE2A078292009B87FC /* VirusUITests */,
 				94B6DFDC2A078291009B87FC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -91,7 +85,6 @@
 			children = (
 				94B6DFDB2A078291009B87FC /* Virus.app */,
 				94B6DFF12A078292009B87FC /* VirusTests.xctest */,
-				94B6DFFB2A078292009B87FC /* VirusUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -99,13 +92,16 @@
 		94B6DFDD2A078291009B87FC /* Virus */ = {
 			isa = PBXGroup;
 			children = (
+				94B6E0102A0783CA009B87FC /* View */,
+				94B6E0192A078B64009B87FC /* Service */,
+				94B6E01E2A078F2E009B87FC /* Entity */,
 				94B6DFDE2A078291009B87FC /* AppDelegate.swift */,
 				94B6DFE02A078291009B87FC /* SceneDelegate.swift */,
-				94B6DFE22A078291009B87FC /* ViewController.swift */,
-				94B6DFE42A078291009B87FC /* Main.storyboard */,
+				94B6E00E2A078385009B87FC /* Coordinator.swift */,
 				94B6DFE72A078292009B87FC /* Assets.xcassets */,
 				94B6DFE92A078292009B87FC /* LaunchScreen.storyboard */,
 				94B6DFEC2A078292009B87FC /* Info.plist */,
+				94B6E01A2A078EC0009B87FC /* Router.swift */,
 			);
 			path = Virus;
 			sourceTree = "<group>";
@@ -118,13 +114,48 @@
 			path = VirusTests;
 			sourceTree = "<group>";
 		};
-		94B6DFFE2A078292009B87FC /* VirusUITests */ = {
+		94B6E0102A0783CA009B87FC /* View */ = {
 			isa = PBXGroup;
 			children = (
-				94B6DFFF2A078292009B87FC /* VirusUITests.swift */,
-				94B6E0012A078292009B87FC /* VirusUITestsLaunchTests.swift */,
+				94B6E0172A07850D009B87FC /* CustomTextFieldView.swift */,
+				94B6E0112A0783D4009B87FC /* Main */,
+				94B6E0122A0783D9009B87FC /* Desk */,
 			);
-			path = VirusUITests;
+			path = View;
+			sourceTree = "<group>";
+		};
+		94B6E0112A0783D4009B87FC /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				94B6E0132A0783EF009B87FC /* MainVC.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		94B6E0122A0783D9009B87FC /* Desk */ = {
+			isa = PBXGroup;
+			children = (
+				94B6E0152A07842D009B87FC /* DeskVC.swift */,
+				94B6E0212A079F6A009B87FC /* DeskCollectionCell.xib */,
+				94B6E0232A079FCE009B87FC /* DeskCellView.swift */,
+			);
+			path = Desk;
+			sourceTree = "<group>";
+		};
+		94B6E0192A078B64009B87FC /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				94B6E01C2A078EE0009B87FC /* VirusEngine.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		94B6E01E2A078F2E009B87FC /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				94B6E01F2A078F40009B87FC /* DeskState.swift */,
+			);
+			path = Entity;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -158,30 +189,12 @@
 			buildRules = (
 			);
 			dependencies = (
-				94B6DFF32A078292009B87FC /* PBXTargetDependency */,
+				94B6E0262A07A757009B87FC /* PBXTargetDependency */,
 			);
 			name = VirusTests;
 			productName = VirusTests;
 			productReference = 94B6DFF12A078292009B87FC /* VirusTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		94B6DFFA2A078292009B87FC /* VirusUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 94B6E00B2A078292009B87FC /* Build configuration list for PBXNativeTarget "VirusUITests" */;
-			buildPhases = (
-				94B6DFF72A078292009B87FC /* Sources */,
-				94B6DFF82A078292009B87FC /* Frameworks */,
-				94B6DFF92A078292009B87FC /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				94B6DFFD2A078292009B87FC /* PBXTargetDependency */,
-			);
-			name = VirusUITests;
-			productName = VirusUITests;
-			productReference = 94B6DFFB2A078292009B87FC /* VirusUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -198,11 +211,6 @@
 					};
 					94B6DFF02A078292009B87FC = {
 						CreatedOnToolsVersion = 14.3;
-						TestTargetID = 94B6DFDA2A078291009B87FC;
-					};
-					94B6DFFA2A078292009B87FC = {
-						CreatedOnToolsVersion = 14.3;
-						TestTargetID = 94B6DFDA2A078291009B87FC;
 					};
 				};
 			};
@@ -221,7 +229,6 @@
 			targets = (
 				94B6DFDA2A078291009B87FC /* Virus */,
 				94B6DFF02A078292009B87FC /* VirusTests */,
-				94B6DFFA2A078292009B87FC /* VirusUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -231,20 +238,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				94B6E0222A079F6A009B87FC /* DeskCollectionCell.xib in Resources */,
 				94B6DFEB2A078292009B87FC /* LaunchScreen.storyboard in Resources */,
 				94B6DFE82A078292009B87FC /* Assets.xcassets in Resources */,
-				94B6DFE62A078291009B87FC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		94B6DFEF2A078292009B87FC /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		94B6DFF92A078292009B87FC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -258,9 +258,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				94B6DFE32A078291009B87FC /* ViewController.swift in Sources */,
 				94B6DFDF2A078291009B87FC /* AppDelegate.swift in Sources */,
+				94B6E0242A079FCE009B87FC /* DeskCellView.swift in Sources */,
+				94B6E0162A07842D009B87FC /* DeskVC.swift in Sources */,
+				94B6E0182A07850D009B87FC /* CustomTextFieldView.swift in Sources */,
+				94B6E01D2A078EE0009B87FC /* VirusEngine.swift in Sources */,
+				94B6E0202A078F40009B87FC /* DeskState.swift in Sources */,
+				94B6E01B2A078EC0009B87FC /* Router.swift in Sources */,
+				94B6E0142A0783EF009B87FC /* MainVC.swift in Sources */,
 				94B6DFE12A078291009B87FC /* SceneDelegate.swift in Sources */,
+				94B6E00F2A078385009B87FC /* Coordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,39 +279,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		94B6DFF72A078292009B87FC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				94B6E0022A078292009B87FC /* VirusUITestsLaunchTests.swift in Sources */,
-				94B6E0002A078292009B87FC /* VirusUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		94B6DFF32A078292009B87FC /* PBXTargetDependency */ = {
+		94B6E0262A07A757009B87FC /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 94B6DFDA2A078291009B87FC /* Virus */;
-			targetProxy = 94B6DFF22A078292009B87FC /* PBXContainerItemProxy */;
-		};
-		94B6DFFD2A078292009B87FC /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 94B6DFDA2A078291009B87FC /* Virus */;
-			targetProxy = 94B6DFFC2A078292009B87FC /* PBXContainerItemProxy */;
+			targetProxy = 94B6E0252A07A757009B87FC /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		94B6DFE42A078291009B87FC /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				94B6DFE52A078291009B87FC /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		94B6DFE92A078292009B87FC /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -366,7 +351,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -420,7 +405,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -440,11 +425,14 @@
 				DEVELOPMENT_TEAM = Y27S32PB7A;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Virus/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Virus;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -468,11 +456,14 @@
 				DEVELOPMENT_TEAM = Y27S32PB7A;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Virus/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Virus;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.games";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -490,19 +481,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y27S32PB7A;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = VadimPopov.VirusTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Virus.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Virus";
 			};
 			name = Debug;
 		};
@@ -510,55 +499,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = Y27S32PB7A;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = VadimPopov.VirusTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Virus.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Virus";
-			};
-			name = Release;
-		};
-		94B6E00C2A078292009B87FC /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Y27S32PB7A;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = VadimPopov.VirusUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Virus;
-			};
-			name = Debug;
-		};
-		94B6E00D2A078292009B87FC /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = Y27S32PB7A;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = VadimPopov.VirusUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Virus;
 			};
 			name = Release;
 		};
@@ -588,15 +539,6 @@
 			buildConfigurations = (
 				94B6E0092A078292009B87FC /* Debug */,
 				94B6E00A2A078292009B87FC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		94B6E00B2A078292009B87FC /* Build configuration list for PBXNativeTarget "VirusUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				94B6E00C2A078292009B87FC /* Debug */,
-				94B6E00D2A078292009B87FC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

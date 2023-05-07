@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="DeskCellView" customModule="Virus" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="192" height="173"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oV8-SD-wyn" userLabel="Circle">
+                    <rect key="frame" x="0.0" y="0.0" width="192" height="173"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="oV8-SD-wyn" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="4q4-1q-PjT"/>
+                <constraint firstAttribute="trailing" secondItem="oV8-SD-wyn" secondAttribute="trailing" id="npM-BN-hCc"/>
+                <constraint firstItem="oV8-SD-wyn" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="yMI-sA-NeW"/>
+                <constraint firstAttribute="bottom" secondItem="oV8-SD-wyn" secondAttribute="bottom" id="zaC-q2-Ra5"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="circle" destination="oV8-SD-wyn" id="MwK-je-u6N"/>
+            </connections>
+            <point key="canvasLocation" x="-19.847328244274809" y="-219.36619718309859"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

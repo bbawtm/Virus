@@ -2,7 +2,7 @@
 //  VirusTests.swift
 //  VirusTests
 //
-//  Created by Вадим Попов on 07.05.2023.
+//  Created by Vadim Popov on 07.05.2023.
 //
 
 import XCTest
