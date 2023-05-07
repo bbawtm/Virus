@@ -44,8 +44,13 @@ final class DeskVC: UIViewController, UICollectionViewDataSource, UICollectionVi
         
         NSLayoutConstraint.activate([
             collectionView.heightAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.heightAnchor),
-            collectionView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            collectionView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
         ])
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        scrollView.setZoomScale(1, animated: false)
     }
     
     // MARK: - Collection View Settings

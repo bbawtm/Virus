@@ -11,19 +11,19 @@ import UIKit
 final class MainVC: UIViewController {
     
     private lazy var groupSizeField = {
-        let field = CustomTextFieldView(label: "Group size", placeholder: "Enter integer value")
-        field.setChecker(checker: integerChecker)
+        let field = CustomTextFieldView(label: "Group size", placeholder: "Enter positive integer value")
+        field.setChecker(checker: groupSizeChecker)
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
     private lazy var infectionFactorField = {
-        let field = CustomTextFieldView(label: "Infection factor", placeholder: "Enter integer value")
-        field.setChecker(checker: integerChecker)
+        let field = CustomTextFieldView(label: "Infection factor", placeholder: "Enter integer value from 0...8")
+        field.setChecker(checker: infectionFactorChecker)
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
     }()
     private lazy var timeIntervalField = {
-        let field = CustomTextFieldView(label: "Time interval", placeholder: "Enter float value (seconds)")
+        let field = CustomTextFieldView(label: "Time interval", placeholder: "Enter positive float value (seconds)")
         field.setChecker(checker: floatChecker)
         field.translatesAutoresizingMaskIntoConstraints = false
         return field
@@ -36,32 +36,46 @@ final class MainVC: UIViewController {
         )
         config.cornerStyle = .capsule
         config.contentInsets = .init(top: 8, leading: 24, bottom: 8, trailing: 24)
-        let btn = UIButton(configuration: config, primaryAction: UIAction(handler: { [self] _ in
+        let action = UIAction(handler: { [self] _ in
             if groupSizeField.isCorrect && infectionFactorField.isCorrect && timeIntervalField.isCorrect {
-                coordinator.getReference(for: Router.self).switchToDesk(
-                    groupSizeField.getValue(),
-                    infectionFactorField.getValue(),
-                    timeIntervalField.getValue()
-                )
+                if Int(groupSizeField.getValue()) ?? 0 > 1000 {
+                    let alert = UIAlertController(title: "Are you sure?", message: "Perhaps it is worth reducing the 'Group size' to at least 1000.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                    present(alert, animated: true)
+                } else {
+                    coordinator.getReference(for: Router.self).switchToDesk(
+                        groupSizeField.getValue(),
+                        infectionFactorField.getValue(),
+                        timeIntervalField.getValue()
+                    )
+                }
             } else {
-                integerChecker(groupSizeField)
-                integerChecker(infectionFactorField)
+                groupSizeChecker(groupSizeField)
+                infectionFactorChecker(infectionFactorField)
                 floatChecker(timeIntervalField)
             }
-        }))
+        })
+        let btn = UIButton(configuration: config, primaryAction: action)
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
     
-    private let integerChecker: (CustomTextFieldView) -> Void = { field in
-        if Int(field.getValue()) != nil {
+    private let groupSizeChecker: (CustomTextFieldView) -> Void = { field in
+        if let num = Int(field.getValue()), num > 0 {
+            field.hideError()
+        } else {
+            field.showError()
+        }
+    }
+    private let infectionFactorChecker: (CustomTextFieldView) -> Void = { field in
+        if let num = Int(field.getValue()), num >= 0 && num <= 8 {
             field.hideError()
         } else {
             field.showError()
         }
     }
     private let floatChecker: (CustomTextFieldView) -> Void = { field in
-        if Float(field.getValue()) != nil {
+        if let num = Float(field.getValue()), num > 0 {
             field.hideError()
         } else {
             field.showError()
