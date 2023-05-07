@@ -10,5 +10,7 @@ import UIKit
 
 protocol DeskState {
     var count: Int { get }
+    var sick: Int { get }
     var values: [Bool] { get }
+    var buf: [Int] { get }
 }

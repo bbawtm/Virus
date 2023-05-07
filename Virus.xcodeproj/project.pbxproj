@@ -98,10 +98,10 @@
 				94B6DFDE2A078291009B87FC /* AppDelegate.swift */,
 				94B6DFE02A078291009B87FC /* SceneDelegate.swift */,
 				94B6E00E2A078385009B87FC /* Coordinator.swift */,
+				94B6E01A2A078EC0009B87FC /* Router.swift */,
 				94B6DFE72A078292009B87FC /* Assets.xcassets */,
 				94B6DFE92A078292009B87FC /* LaunchScreen.storyboard */,
 				94B6DFEC2A078292009B87FC /* Info.plist */,
-				94B6E01A2A078EC0009B87FC /* Router.swift */,
 			);
 			path = Virus;
 			sourceTree = "<group>";

@@ -32,13 +32,14 @@ final class DeskVC: UIViewController, UICollectionViewDataSource, UICollectionVi
     
     private let statView: UILabel = {
         let label = UILabel()
-        label.text = "100%"
+        label.text = "0%"
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     public func linkDesk(_ desk: DeskState) {
         currentDesk = desk
-        statView.text = "0:\(currentDesk?.count ?? 1)"
+        statView.text = "0:\(currentDesk?.count ?? 1) (0%)"
         collectionView.reloadData()
     }
     
@@ -66,9 +67,26 @@ final class DeskVC: UIViewController, UICollectionViewDataSource, UICollectionVi
         super.viewDidAppear(animated)
         coordinator.getReference(for: VirusEngine.self).connectUI(
             columnsCount: getNumberOfCellsInRow()
-        ) { sick, healthy in
-            self.statView.text = "\(sick):\(healthy)"
+        )
+    }
+    
+    public func reloadAll() {
+        let buf = currentDesk?.buf ?? []
+        for ind in buf {
+            if let cell = collectionView.cellForItem(at: IndexPath(item: ind, section: 0)) as? DeskCellView {
+                cell.setType(isRed: true)
+            }
         }
+        if let sick = currentDesk?.sick,
+           let count = currentDesk?.count
+        {
+            refreshStat(sick, count - sick)
+        }
+    }
+    
+    private func refreshStat(_ sick: Int, _ healthy: Int) {
+        let percent = Int(100.0 * Double(sick) / Double(sick + healthy))
+        statView.text = "\(sick):\(healthy) (\(percent)%)"
     }
     
     // MARK: - Collection View Settings
@@ -132,6 +150,7 @@ final class DeskVC: UIViewController, UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? DeskCellView else { return }
+        coordinator.getReference(for: VirusEngine.self).addInfected(indexPath.item)
         cell.setType(isRed: true)
     }
     
