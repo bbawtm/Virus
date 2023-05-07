@@ -8,36 +8,43 @@
 import UIKit
 
 
-final class DeskVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+final class DeskVC: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate {
     
     private var currentDesk: DeskState?
     
-    private var collectionView: UICollectionView = {
+    private lazy var scrollView: UIScrollView = {
+        let scroll = UIScrollView(frame: view.bounds)
+        scroll.minimumZoomScale = 1
+        scroll.maximumZoomScale = max(sqrt(Double(currentDesk?.count ?? 0)), 1)
+        scroll.delegate = self
+        return scroll
+    }()
+    
+    private lazy var collectionView: UICollectionView = {
         let view = UICollectionView(frame: CGRect(), collectionViewLayout: UICollectionViewFlowLayout())
         view.register(UINib(nibName: "DeskCollectionCell", bundle: .main), forCellWithReuseIdentifier: "DeskCell")
         view.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        view.delegate = self
+        view.dataSource = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     public func linkDesk(_ desk: DeskState) {
         currentDesk = desk
+        collectionView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
-        view.addSubview(collectionView)
+        view.addSubview(scrollView)
+        scrollView.addSubview(collectionView)
         
         NSLayoutConstraint.activate([
-            collectionView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            collectionView.heightAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.heightAnchor),
+            collectionView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
         ])
     }
     
@@ -49,7 +56,6 @@ final class DeskVC: UIViewController, UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let currentDesk else { fatalError("No Desk State provided for the Collection View") }
-        print(currentDesk.count)
         return currentDesk.count
     }
     
@@ -59,28 +65,42 @@ final class DeskVC: UIViewController, UICollectionViewDataSource, UICollectionVi
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DeskCell", for: indexPath) as? DeskCellView else {
             fatalError("DeskCell doesn't comform to expected type")
         }
-        print(indexPath.item)
         cell.setType(isRed: currentDesk.values[indexPath.item])
         return cell
     }
     
-//    func collectionView(
-//        _ collectionView: UICollectionView,
-//        layout collectionViewLayout: UICollectionViewLayout,
-//        sizeForItemAt indexPath: IndexPath
-//    ) -> CGSize {
-//        guard let currentDesk else { fatalError("No Desk State provided for the Collection View") }
-//        return CGSize(width: sqrt(Double(currentDesk.count)) - 1, height: sqrt(Double(currentDesk.count)) - 1)
-//    }
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        guard let currentDesk else { fatalError("No Desk State provided for the Collection View") }
+        return CGSize(width: Double(collectionView.frame.width) / sqrt(Double(currentDesk.count)), height: Double(collectionView.frame.width) / sqrt(Double(currentDesk.count)))
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int
+    ) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+    }
     
-//    func collectionView(
-//        _ collectionView: UICollectionView,
-//        layout collectionViewLayout: UICollectionViewLayout,
-//        insetForSectionAt section: Int
-//    ) -> UIEdgeInsets {
-//        return UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
-//    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 4
+    }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 4
+    }
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        if scrollView == self.scrollView {
+            return collectionView
+        }
+        return nil
+    }
+
 }
 
 

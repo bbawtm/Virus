@@ -13,7 +13,7 @@ final class DeskCellView: UICollectionViewCell {
     @IBOutlet weak var circle: UIView!
     
     public func setType(isRed: Bool) {
-        circle.layer.cornerRadius = circle.bounds.width / 2
+        circle.layer.cornerRadius = 8
         circle.layer.borderColor = UIColor.label.withAlphaComponent(0.75).cgColor
         circle.layer.borderWidth = 1
         circle.backgroundColor = isRed ? .systemRed : .systemFill

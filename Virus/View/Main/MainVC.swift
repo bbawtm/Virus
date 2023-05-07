@@ -30,9 +30,12 @@ final class MainVC: UIViewController {
     }()
     private lazy var startButton: UIButton = {
         var config = UIButton.Configuration.filled()
-        config.title = "Start"
+        config.attributedTitle = AttributedString(
+            "Start",
+            attributes: AttributeContainer([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 19)])
+        )
         config.cornerStyle = .capsule
-        config.contentInsets = .init(top: 8, leading: 22, bottom: 8, trailing: 22)
+        config.contentInsets = .init(top: 8, leading: 24, bottom: 8, trailing: 24)
         let btn = UIButton(configuration: config, primaryAction: UIAction(handler: { [self] _ in
             if groupSizeField.isCorrect && infectionFactorField.isCorrect && timeIntervalField.isCorrect {
                 coordinator.getReference(for: Router.self).switchToDesk(
