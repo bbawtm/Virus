@@ -11,6 +11,8 @@ import UIKit
 final class VirusEngine {
     
     private let desk: Desk
+    private var columnsCount: Int?
+    private var refreshStat: ((Int, Int) -> Void)?
     
     public init(
         _ groupSize: Int,
@@ -23,6 +25,20 @@ final class VirusEngine {
     public func getDesk() -> DeskState {
         return desk
     }
+    
+    public func connectUI(
+        columnsCount: Int,
+        refreshStat: @escaping (Int, Int) -> Void
+    ) {
+        self.columnsCount = columnsCount
+        self.refreshStat = refreshStat
+        start()
+    }
+    
+    private func start() {
+        refreshStat?(2, 3)
+    }
+    
     
     private final class Desk: DeskState {
         

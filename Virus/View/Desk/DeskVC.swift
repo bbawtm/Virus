@@ -30,8 +30,15 @@ final class DeskVC: UIViewController, UICollectionViewDataSource, UICollectionVi
         return view
     }()
     
+    private let statView: UILabel = {
+        let label = UILabel()
+        label.text = "100%"
+        return label
+    }()
+    
     public func linkDesk(_ desk: DeskState) {
         currentDesk = desk
+        statView.text = "0:\(currentDesk?.count ?? 1)"
         collectionView.reloadData()
     }
     
@@ -46,11 +53,22 @@ final class DeskVC: UIViewController, UICollectionViewDataSource, UICollectionVi
             collectionView.heightAnchor.constraint(greaterThanOrEqualTo: view.safeAreaLayoutGuide.heightAnchor),
             collectionView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor),
         ])
+        
+        navigationItem.titleView = statView
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         scrollView.setZoomScale(1, animated: false)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        coordinator.getReference(for: VirusEngine.self).connectUI(
+            columnsCount: getNumberOfCellsInRow()
+        ) { sick, healthy in
+            self.statView.text = "\(sick):\(healthy)"
+        }
     }
     
     // MARK: - Collection View Settings
@@ -80,7 +98,9 @@ final class DeskVC: UIViewController, UICollectionViewDataSource, UICollectionVi
         sizeForItemAt indexPath: IndexPath
     ) -> CGSize {
         guard let currentDesk else { fatalError("No Desk State provided for the Collection View") }
-        return CGSize(width: Double(collectionView.frame.width) / sqrt(Double(currentDesk.count)), height: Double(collectionView.frame.width) / sqrt(Double(currentDesk.count)))
+        let sqrtNum = sqrt(Double(currentDesk.count))
+        let eachSize = Double(collectionView.frame.width - 16) / sqrtNum - 3
+        return CGSize(width: eachSize, height: eachSize)
     }
 
     func collectionView(
@@ -88,16 +108,34 @@ final class DeskVC: UIViewController, UICollectionViewDataSource, UICollectionVi
         layout collectionViewLayout: UICollectionViewLayout,
         insetForSectionAt section: Int
     ) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
+        return UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 4
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 4
+        return 6
     }
+    
+    private func getNumberOfCellsInRow() -> Int {
+        var ind = 0
+        let firstY = collectionView.cellForItem(at: IndexPath(item: 0, section: 0))?.frame.origin.y
+        while collectionView.cellForItem(at: IndexPath(item: ind, section: 0))?.frame.origin.y == firstY {
+            ind += 1
+        }
+        return ind
+    }
+    
+    // MARK: - Touch handling
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? DeskCellView else { return }
+        cell.setType(isRed: true)
+    }
+    
+    // MARK: - Zooming
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         if scrollView == self.scrollView {
