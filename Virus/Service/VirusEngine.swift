@@ -8,17 +8,26 @@
 import UIKit
 
 
+/**
+ Implementation of the main logic of the program.
+ */
 final class VirusEngine {
     
     private let desk: Desk
     private let infectionFactor: Int
     private let timeInterval: Float
-    private var refreshStat: ((Int, Int) -> Void)?
     private let taskManagerQueue = DispatchQueue(label: "VadimPopov.Virus.Engine.TaskManagerQueue")
     private let concurrentQueue = DispatchQueue(label: "VadimPopov.Virus.Engine.ConcurrentQueue", attributes: .concurrent)
     private var timer: DispatchSourceTimer?
     private var taskManagerQueueKey: Int = 0
     
+    /**
+     Initializes class with specified parameters.
+     
+     - Parameter groupSize: current selection size
+     - Parameter infectionFactor: the number of neighbors that one object can infect
+     - Parameter timeInterval: state update time interval
+     */
     public init(
         _ groupSize: Int,
         _ infectionFactor: Int,
@@ -31,15 +40,22 @@ final class VirusEngine {
     
     deinit {
         timer = nil
+        taskManagerQueueKey = 0
     }
     
+    /**
+     Returnes the DeskState as a reference
+     */
     public func getDesk() -> DeskState {
         return desk
     }
     
-    public func connectUI(
-        columnsCount: Int
-    ) {
+    /**
+     Provides information about the grid in the user interface
+     
+     - Parameter columnsCount: number of columns in grid
+     */
+    public func connectUI(columnsCount: Int) {
         desk.columnsCount = columnsCount
         
         let timer = DispatchSource.makeTimerSource(queue: taskManagerQueue)
@@ -49,16 +65,15 @@ final class VirusEngine {
             }
             taskManagerQueueKey = 1
             DispatchQueue.main.async { [unowned self] in
-                if !desk.buf.isEmpty {
-                    coordinator.getReference(for: DeskVC.self).reloadAll()
-                    desk.buf = []
-                }
-                if desk.sick == desk.count {
-                    self.timer = nil
-                    return
-                }
+                coordinator.getReference(for: DeskVC.self).reloadAll()
+                desk.buf = []
                 
                 taskManagerQueue.async { [unowned self] in
+                    if desk.sick == desk.count {
+                        self.timer = nil
+                        taskManagerQueueKey -= 1
+                        return
+                    }
                     for i in 0..<desk.values.count {
                         addTask(forItem: i)
                     }
@@ -72,41 +87,79 @@ final class VirusEngine {
         self.timer = timer
     }
     
+    /**
+     Marks a new externally charged infected
+     
+     - Parameter ind: index of specified element
+     */
     public func addInfected(_ ind: Int) {
-        guard ind >= 0 && ind < desk.values.count && !desk.values[ind] else { return }
-        desk.values[ind] = true
-        desk.sick += 1
-        addTask(forItem: ind)
+        guard ind >= 0 && ind < desk.values.count else { return }
+        taskManagerQueue.async { [unowned self] in
+            guard !desk.values[ind] else { return }
+            desk.values[ind] = true
+            desk.sick += 1
+            addTask(forItem: ind)
+        }
     }
     
+    /**
+     Starts executing a task on concurrent queue.
+
+     - Parameter item: index of specified element
+     */
     private func addTask(forItem item: Int) {
         guard desk.values[item], let columnsCount = desk.columnsCount else { return }
         taskManagerQueueKey += 1
-        let valuesCopy = desk.values
-        concurrentQueue.async { [unowned self] in
-            var neighbours: [Int] = []
-            let mn = item - columnsCount
-            let mx = item + columnsCount
-            for i in -1...1 {
-                if mn + i >= 0 && mn + i < valuesCopy.count {
-                    neighbours.append(mn + i)
-                }
-                if mx + i >= 0 && mx + i < valuesCopy.count {
-                    neighbours.append(mx + i)
-                }
-                if i != 0 && item + i >= 0 && item + i < valuesCopy.count {
-                    neighbours.append(item + i)
+        
+        var needToCalc = false
+        if desk.neighbours[item].count == 0 {
+            needToCalc = true
+        } else {
+            for neighbour in desk.neighbours[item] {
+                if !desk.values[neighbour] {
+                    needToCalc = true
                 }
             }
+        }
+        if !needToCalc {
+            taskManagerQueueKey -= 1
+            return
+        }
+        
+        concurrentQueue.async { [self] in
+            if desk.neighbours[item].count == 0 {
+                let checkAndAdd: (Int) -> Void = { ind in
+                    if ind >= 0 && ind < self.desk.values.count {
+                        self.desk.neighbours[item].insert(ind)
+                    }
+                }
+                var range = stride(from: -1, through: 1, by: 1)
+                if columnsCount == 1 {
+                    range = stride(from: 0, through: 0, by: 1)
+                } else if item % columnsCount == 0 {
+                    range = stride(from: 0, through: 1, by: 1)
+                } else if (item + 1) % columnsCount == 0 {
+                    range = stride(from: -1, through: 0, by: 1)
+                }
+                for i in range {
+                    checkAndAdd(item - columnsCount + i)
+                    checkAndAdd(item + columnsCount + i)
+                    if i != 0 {
+                        checkAndAdd(item + i)
+                    }
+                }
+            }
+            var neighbours = Array(desk.neighbours[item])
+                
             var res: [Int] = []
-            if infectionFactor >= neighbours.count {
+            if infectionFactor >= desk.neighbours[item].count {
                 res = neighbours
             } else {
                 for _ in 0..<infectionFactor {
                     res.append(neighbours.remove(at: Int.random(in: 0..<neighbours.count)))
                 }
             }
-            DispatchQueue.main.async { [unowned self] in
+            taskManagerQueue.async { [unowned self] in
                 for newInd in res {
                     if !desk.values[newInd] {
                         desk.values[newInd] = true
@@ -114,27 +167,30 @@ final class VirusEngine {
                         desk.buf.append(newInd)
                     }
                 }
-                taskManagerQueue.async { [unowned self] in
-                    taskManagerQueueKey -= 1
-                }
+                taskManagerQueueKey -= 1
             }
         }
     }
     
     
+    /**
+     Implementation of the DeskState protocol. Used to hide its properties from the inside. Made private for preventing downcasting.
+     */
     private final class Desk: DeskState {
-        
         let count: Int
         var sick: Int = 0
         var columnsCount: Int?
         var values: [Bool]
         var buf: [Int] = []
+        var neighbours: [Set<Int>] = []
         
         init(count: Int) {
             self.count = count
             self.values = .init(repeating: false, count: count)
+            for _ in 0..<count {
+                neighbours.append([])
+            }
         }
-        
     }
     
 }

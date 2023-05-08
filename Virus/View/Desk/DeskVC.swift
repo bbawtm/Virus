@@ -78,14 +78,15 @@ final class DeskVC: UIViewController, UICollectionViewDataSource, UICollectionVi
                 cell.setType(isRed: true)
             }
         }
-        if let sick = currentDesk?.sick,
-           let count = currentDesk?.count
-        {
-            refreshStat(sick, count - sick)
-        }
+        refreshStat()
     }
     
-    private func refreshStat(_ sick: Int, _ healthy: Int) {
+    private func refreshStat() {
+        guard let sick = currentDesk?.sick,
+              let count = currentDesk?.count
+        else { return }
+        
+        let healthy = count - sick
         let percent = Int(100.0 * Double(sick) / Double(sick + healthy))
         statView.text = "\(sick):\(healthy) (\(percent)%)"
     }
@@ -118,7 +119,7 @@ final class DeskVC: UIViewController, UICollectionViewDataSource, UICollectionVi
     ) -> CGSize {
         guard let currentDesk else { fatalError("No Desk State provided for the Collection View") }
         let sqrtNum = sqrt(Double(currentDesk.count))
-        let eachSize = Double(collectionView.frame.width - 16) / sqrtNum - 3
+        let eachSize = Double(collectionView.frame.width - 16) / sqrtNum
         return CGSize(width: eachSize, height: eachSize)
     }
 
@@ -131,11 +132,11 @@ final class DeskVC: UIViewController, UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 3
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 6
+        return 1
     }
     
     private func getNumberOfCellsInRow() -> Int {
@@ -153,6 +154,7 @@ final class DeskVC: UIViewController, UICollectionViewDataSource, UICollectionVi
         guard let cell = collectionView.cellForItem(at: indexPath) as? DeskCellView else { return }
         coordinator.getReference(for: VirusEngine.self).addInfected(indexPath.item)
         cell.setType(isRed: true)
+        refreshStat()
     }
     
     // MARK: - Zooming
