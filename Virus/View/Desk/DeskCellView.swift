@@ -15,7 +15,7 @@ final class DeskCellView: UICollectionViewCell {
     public func setType(isRed: Bool) {
         circle.layer.borderColor = UIColor.label.withAlphaComponent(0.4).cgColor
         circle.layer.borderWidth = 1
-        circle.backgroundColor = isRed ? .systemRed : .white
+        circle.backgroundColor = isRed ? .systemRed : .systemBackground
     }
     
 }
