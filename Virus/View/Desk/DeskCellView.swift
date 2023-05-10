@@ -18,9 +18,4 @@ final class DeskCellView: UICollectionViewCell {
         circle.backgroundColor = isRed ? .systemRed : .white
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-//        circle.layer.cornerRadius = circle.bounds.width / 2
-    }
-    
 }

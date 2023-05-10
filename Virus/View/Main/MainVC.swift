@@ -36,19 +36,23 @@ final class MainVC: UIViewController {
         )
         config.cornerStyle = .capsule
         config.contentInsets = .init(top: 8, leading: 24, bottom: 8, trailing: 24)
-        let action = UIAction(handler: { [self] _ in
+        let action = UIAction(handler: { [unowned self] _ in
             if groupSizeField.isCorrect && infectionFactorField.isCorrect && timeIntervalField.isCorrect {
-//                if Int(groupSizeField.getValue()) ?? 0 > 1000 {
-//                    let alert = UIAlertController(title: "Are you sure?", message: "Perhaps it is worth reducing the 'Group size' to at least 1000.", preferredStyle: .alert)
-//                    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-//                    present(alert, animated: true)
-//                } else {
+                if Int(groupSizeField.getValue()) ?? 0 > 10000 {
+                    let alert = UIAlertController(
+                        title: "Are you sure?",
+                        message: "Perhaps it is worth reducing the 'Group size' (the maximum value is set to 10000). Loading a value >1000 will also take some time.",
+                        preferredStyle: .alert
+                    )
+                    alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+                    present(alert, animated: true)
+                } else {
                     coordinator.getReference(for: Router.self).switchToDesk(
                         groupSizeField.getValue(),
                         infectionFactorField.getValue(),
                         timeIntervalField.getValue()
                     )
-//                }
+                }
             } else {
                 groupSizeChecker(groupSizeField)
                 infectionFactorChecker(infectionFactorField)

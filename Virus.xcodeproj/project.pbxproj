@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		94431B452A0B9B4200BA204B /* VirusEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B6E01C2A078EE0009B87FC /* VirusEngine.swift */; };
+		94431B462A0B9B4A00BA204B /* DeskState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B6E01F2A078F40009B87FC /* DeskState.swift */; };
 		94B6DFDF2A078291009B87FC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B6DFDE2A078291009B87FC /* AppDelegate.swift */; };
 		94B6DFE12A078291009B87FC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94B6DFE02A078291009B87FC /* SceneDelegate.swift */; };
 		94B6DFE82A078292009B87FC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 94B6DFE72A078292009B87FC /* Assets.xcassets */; };
@@ -276,6 +278,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				94B6DFF62A078292009B87FC /* VirusTests.swift in Sources */,
+				94431B462A0B9B4A00BA204B /* DeskState.swift in Sources */,
+				94431B452A0B9B4200BA204B /* VirusEngine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

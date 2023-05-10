@@ -68,7 +68,9 @@ final class DeskVC: UIViewController, UICollectionViewDataSource, UICollectionVi
         super.viewDidAppear(animated)
         coordinator.getReference(for: VirusEngine.self).connectUI(
             columnsCount: getNumberOfCellsInRow()
-        )
+        ) {
+            self.reloadAll()
+        }
     }
     
     public func reloadAll() {

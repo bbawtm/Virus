@@ -18,18 +18,27 @@ final class VirusTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testFirstStep() async throws {
+        let col = 100
+        
+        for factor in [1, 3, 5, 8] {
+            let engine: VirusEngine? = .init(col*col, factor, 0.1)
+            var stepsCount = 0
+            
+            engine!.connectUI(columnsCount: col) {
+                stepsCount += 1
+                if stepsCount == 1 {
+                    XCTAssertEqual(engine?.getDesk().sick, 2 * (1 + factor))
+                }
+            }
+            
+            engine!.addInfected((col / 4) * 100 + (col / 4))
+            engine!.addInfected((3 * col / 4) * 100 + (3 * col / 4))
+            
+            while engine?.isRunning() ?? false {
+                sleep(1)
+            }
+            XCTAssertEqual(engine?.getDesk().sick, col*col)
         }
     }
 

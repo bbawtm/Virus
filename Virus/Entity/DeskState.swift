@@ -8,9 +8,6 @@
 import UIKit
 
 
-/**
- The protocol of interaction between the engine and the user interface. Provides access to get-only properties.
- */
 protocol DeskState {
     var count: Int { get }
     var sick: Int { get }

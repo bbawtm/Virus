@@ -8,9 +8,6 @@
 import UIKit
 
 
-/**
- Implementation of the main logic of the program.
- */
 final class VirusEngine {
     
     private let desk: Desk
@@ -21,13 +18,6 @@ final class VirusEngine {
     private var timer: DispatchSourceTimer?
     private var taskManagerQueueKey: Int = 0
     
-    /**
-     Initializes class with specified parameters.
-     
-     - Parameter groupSize: current selection size
-     - Parameter infectionFactor: the number of neighbors that one object can infect
-     - Parameter timeInterval: state update time interval
-     */
     public init(
         _ groupSize: Int,
         _ infectionFactor: Int,
@@ -50,12 +40,10 @@ final class VirusEngine {
         return desk
     }
     
-    /**
-     Provides information about the grid in the user interface
-     
-     - Parameter columnsCount: number of columns in grid
-     */
-    public func connectUI(columnsCount: Int) {
+    public func connectUI(
+        columnsCount: Int,
+        reloadUI: @escaping () -> Void
+    ) {
         desk.columnsCount = columnsCount
         
         let timer = DispatchSource.makeTimerSource(queue: taskManagerQueue)
@@ -65,7 +53,7 @@ final class VirusEngine {
             }
             taskManagerQueueKey = 1
             DispatchQueue.main.async { [unowned self] in
-                coordinator.getReference(for: DeskVC.self).reloadAll()
+                reloadUI()
                 desk.buf = []
                 
                 taskManagerQueue.async { [unowned self] in
@@ -87,11 +75,6 @@ final class VirusEngine {
         self.timer = timer
     }
     
-    /**
-     Marks a new externally charged infected
-     
-     - Parameter ind: index of specified element
-     */
     public func addInfected(_ ind: Int) {
         guard ind >= 0 && ind < desk.values.count else { return }
         taskManagerQueue.async { [unowned self] in
@@ -102,11 +85,10 @@ final class VirusEngine {
         }
     }
     
-    /**
-     Starts executing a task on concurrent queue.
-
-     - Parameter item: index of specified element
-     */
+    public func isRunning() -> Bool {
+        return timer != nil
+    }
+    
     private func addTask(forItem item: Int) {
         guard desk.values[item], let columnsCount = desk.columnsCount else { return }
         taskManagerQueueKey += 1
@@ -126,7 +108,7 @@ final class VirusEngine {
             return
         }
         
-        concurrentQueue.async { [self] in
+        concurrentQueue.async { [unowned self] in
             if desk.neighbours[item].count == 0 {
                 let checkAndAdd: (Int) -> Void = { ind in
                     if ind >= 0 && ind < self.desk.values.count {
@@ -173,9 +155,6 @@ final class VirusEngine {
     }
     
     
-    /**
-     Implementation of the DeskState protocol. Used to hide its properties from the inside. Made private for preventing downcasting.
-     */
     private final class Desk: DeskState {
         let count: Int
         var sick: Int = 0
